@@ -1,8 +1,10 @@
 {
-  "name": "Thermostat",
-  "productName": "Thermostat",
+  "name": "thermostat",
+  "productName": "thermostat",
   "version": "0.0.1",
   "publisher": "ukrrele",
+  "description": "for xctrl device",
+  "author": "ukrrele.com <ukrrele@ukrrele.com>",
   "main": "nw-start.html",
   "window": {
     "title": "УКРРЕЛЕ",
