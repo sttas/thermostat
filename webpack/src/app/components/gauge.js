@@ -239,7 +239,7 @@ const AppContainer = React.createClass({
             });
         }
 
-        if (this.state.windowWidth > 600) {
+        if (1 || this.state.windowWidth > 600) {
             return (
                 <div align="center" style={{marginTop: 140}}>
                     <div>
@@ -255,13 +255,16 @@ const AppContainer = React.createClass({
                         <div style={{width: 360, margin: '0 auto', pointerEvents: isWorking && this.props.mode === 'thermostat' ? 'inherit': 'none', opacity: isWorking && this.props.mode === 'thermostat' ? 1 : 0.5}} ref={(ref) => this.d3cmp = ref} >
 
                         </div>
-                        <div style={{width: 460, margin: '0 auto'}}>
+                        <div style={{width: 380, margin: '0 auto'}}>
                             {devices.map(function(result) {
 
                                 const Icon = result.reley ? SunnyIcon : ColdIcon;
 
-                                return <div style={{float: 'left', padding: 6, margin: 5, fontSize: 14, color: '#909090'}}>
-                                    <Icon style={{height: 42, width:42, marginBottom:-6, marginRight:12}} color={(result.reley ? '#43a047': '#909090')}/> <span style={{position: 'absolute', marginTop: 2, textAlign: 'center', width:42}}>{result.temperature}</span>
+                                return <div style={{float: 'left', fontSize: 14, color: '#909090', margin: 10}}>
+                                    <div style={{width:40, textAlign: 'center'}}>
+                                    <Icon style={{height: 22, width:22}} color={(result.reley ? '#43a047': '#909090')}/> 
+                                    </div>
+                                    <span style={{position: 'absolute', marginTop: 2, textAlign: 'center', width:40}}>{result.temperature}</span>
                                 </div>;
                             })}
                         </div>
@@ -290,7 +293,7 @@ const AppContainer = React.createClass({
                                 const Icon = result.reley ? SunnyIcon : ColdIcon;
 
                                 return <div style={{float: 'left', padding: 6, margin: '5px 5px 25px 5px', fontSize: 14, color: '#909090'}}>
-                                    <Icon style={{height: 42, width:42, marginBottom:-6, marginRight:12}} color={(result.reley ? '#43a047': '#909090')}/> <span style={{position: 'absolute', marginTop: 2, textAlign: 'center', width:42}}>{result.temperature}</span>
+                                    <Icon style={{height: 22, width:22, marginBottom:-6, marginRight:12}} color={(result.reley ? '#43a047': '#909090')}/> <span style={{position: 'absolute', marginTop: 2, textAlign: 'center', width:40}}>{result.temperature}</span>
                                 </div>;
                             })}
                         </div>
