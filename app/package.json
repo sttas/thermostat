@@ -1,0 +1,25 @@
+{
+  "name": "Thermostat",
+  "productName": "Thermostat",
+  "version": "0.0.1",
+  "publisher": "ukrrele",
+  "main": "nw-start.html",
+  "window": {
+    "title": "УКРРЕЛЕ",
+    "toolbar": true,
+    "frame": true,
+    "position": "center",
+    "fullscreen": false,
+    "resizable": false,
+    "width": 800,
+    "height": 580,
+    "min_width": 800,
+    "min_height": 580
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-session": "^1.13.0",
+    "lowdb": "^0.12.5",
+    "socket.io": "^1.4.4"
+  }
+}

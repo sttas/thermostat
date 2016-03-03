@@ -1,0 +1,17 @@
+{
+  "settings": [
+    {
+      "name": "settings",
+      "mode": "eco",
+      "eco": 14,
+      "comfort": 27,
+      "pool": 1,
+      "gis": 4,
+      "password": "admin",
+      "cnt": 7,
+      "ip": "195.248.184.106",
+      "port": "5001",
+      "initialized": true
+    }
+  ]
+}
