@@ -1,8 +1,8 @@
 import React from 'react';
 import assign from 'lodash/object/assign';
 import SettingsIcon from 'material-ui/lib/svg-icons/action/power-settings-new';
-import ColdIcon from 'material-ui/lib/svg-icons/places/ac-unit';
-import SunnyIcon from 'material-ui/lib/svg-icons/image/wb-sunny';
+import ColdIcon from 'material-ui/lib/svg-icons/av/fiber-manual-record';
+import SunnyIcon from 'material-ui/lib/svg-icons/av/fiber-manual-record';
 import IconButton from 'material-ui/lib/icon-button';
 
 
@@ -40,8 +40,10 @@ urGauge4.prototype.render = function(config) {
     //    .attr("stop-color", "#F5F5F5");
 
     svg.append("circle")
-        .attr("r", 0.98 * 110)
+        .attr("r", 0.88 * 110)
         .attr("transform", "translate(170,140)")
+        .attr("stroke", "#DADADA")
+        .attr("stroke-width", "20")
         .style("fill", "url(#radial-gradient)");
 
 
@@ -54,12 +56,12 @@ urGauge4.prototype.render = function(config) {
         .attr("patternUnits", "userSpaceOnUse")
         .attr("id", "radial-gradient");
 
-    radialGradient.append("image")
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("height", 220)
-        .attr("width", 220)
-        .attr("xlink:href", "assets/gauge-circle.png");
+    //radialGradient.append("image")
+    //    .attr("x", 0)
+    //    .attr("y", 0)
+    //    .attr("height", 220)
+    //    .attr("width", 220)
+    //    .attr("xlink:href", "assets/gauge-circle.png");
 
     const indicatorDef = svg.append("defs")
         .append("pattern")
@@ -83,10 +85,14 @@ urGauge4.prototype.render = function(config) {
         .indicator(function(g, r) {
 
             g.append("circle")
-                .attr("r", 0.98 * r)
+                .attr("r", 8)
+                .attr("transform", "translate(0,-97)")
                 .attr("class", "knob")
-                .style("fill", "url(#indicator)");
+                .style("fill", "#f9f9f9");
         });
+
+
+
 
     //gauge.axis().orient("out")
     //    .normalize(true)
@@ -99,7 +105,7 @@ urGauge4.prototype.render = function(config) {
     gauge.axis().orient("out")
         .ticks(10)
         .tickSubdivide(5)
-        .tickSize(10, 6)
+        .tickSize(10, 21)
         .tickPadding(5)
         .scale(d3.scale.linear()
             .domain([0, 100])
@@ -178,19 +184,16 @@ const AppContainer = React.createClass({
 
         this.setGaugeValue();
 
-        this.gauge.gauge.onValueChanged(function(v) {
+        this.gauge.gauge.onValueChanged(function(v, step) {
 
-            if (me.props.socket) {
+            if (me.props.socket && step && me.props.thermostat !== v) {
 
-                if (me.changeTimeout) clearTimeout(me.changeTimeout);
+                console.log(me.props.thermostat, v);
 
-                me.changeTimeout = setTimeout(function(){
-                    me.props.socket.emit('update', {
-                        key: 'thermostat',
-                        value: v,
-                    });
-                    me.changeTimeout = null;
-                }, 1000);
+                me.props.socket.emit('update', {
+                    key: 'thermostat',
+                    value: v,
+                });
 
             }
 
@@ -241,15 +244,21 @@ const AppContainer = React.createClass({
 
         if (1 || this.state.windowWidth > 600) {
             return (
-                <div align="center" style={{marginTop: 140}}>
+                <div align="center" style={{marginTop: 100}}>
                     <div>
                         <div style={{width: 360, margin: '0 auto'}}>
+
                             <IconButton
+                                key="switch2"
                                 tooltip={(this.props.mode === 'thermostat')?"Выключить":"Включить"}
-                                style={{position:'absolute', height:74, width: 74, marginLeft: 133, marginTop: 100}}
-                                iconStyle={{height:50, width: 50}}
-                                onTouchTap={this.handleModeChangeClick}><SettingsIcon color={(this.props.mode === 'thermostat')?"#43a047":"#909090"} />
+                                style={{borderRadius: '50%', border: (this.props.mode === 'thermostat')?"1px solid #43a047":"1px solid #909090"}}
+                                onTouchTap={this.handleModeChangeClick}>
+                                <SettingsIcon viewBox="1 1 24 24" color={(this.props.mode === 'thermostat')?"#43a047":"#909090"} />
                             </IconButton>
+                        </div>
+                        <div style={{width: 360, margin: '0 auto'}} key="temperature">
+
+                            <span style={{fontSize:52, color: '#909090', position: 'absolute', marginTop: 125, marginLeft: 90, display:'inline-block', textAlign:'center', width: 170, opacity: isWorking && this.props.mode === 'thermostat' ? 1 : 0.5}}>{Math.round(this.props.thermostat*10)/10}<sup style={{fontSize:14}}>°C</sup></span>
                         </div>
 
                         <div style={{width: 360, margin: '0 auto', pointerEvents: isWorking && this.props.mode === 'thermostat' ? 'inherit': 'none', opacity: isWorking && this.props.mode === 'thermostat' ? 1 : 0.5}} ref={(ref) => this.d3cmp = ref} >

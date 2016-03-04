@@ -66,5 +66,6 @@ body {
 }
 
 .app-header{
-  background: white !important
+  box-shadow: none !important;
+  background: transparent !important
 }
