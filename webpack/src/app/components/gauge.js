@@ -244,7 +244,7 @@ const AppContainer = React.createClass({
 
         if (1 || this.state.windowWidth > 600) {
             return (
-                <div align="center" style={{marginTop: 100}}>
+                <div align="center" style={{marginTop: 80}}>
                     <div>
                         <div style={{width: 360, margin: '0 auto'}}>
 
