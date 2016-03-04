@@ -1,7 +1,7 @@
 {
   "name": "thermostat",
   "productName": "thermostat",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "ukrrele",
   "description": "for xctrl device",
   "author": "ukrrele.com <ukrrele@ukrrele.com>",
